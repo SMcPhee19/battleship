@@ -8,29 +8,29 @@ RSpec.describe Ship do
     expect(cruiser).to be_a Ship
   end
 
-  xit 'the ship has a name' do
+  it 'the ship has a name' do
     expect(cruiser.name).to eq("Cruiser")
   end
 
-  xit 'the ship has a length' do
+  it 'the ship has a length' do
     expect(cruiser.length).to eq(3)
   end
 
-  xit 'the ship has health' do
+  it 'the ship has health' do
     expect(cruiser.health).to eq(3)
   end
 
-  xit 'the ship is not sunk by default' do
+  it 'the ship is not sunk by default' do
     expect(cruiser.sunk?).to be false
   end
 
-  xit 'the ship can can lose health' do
+  it 'the ship can can lose health' do
     cruiser.hit
 
     expect(cruiser.health).to eq(2)
   end
 
-  xit 'the can be sunk' do
+  it 'the can be sunk' do
     3.times do
       cruiser.hit
     end
