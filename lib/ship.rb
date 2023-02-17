@@ -3,7 +3,7 @@ class Ship
               :length
 
   attr_accessor :health
-  
+
   def initialize(name, length)
     @name = name
     @length = length
