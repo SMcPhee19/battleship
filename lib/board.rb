@@ -28,9 +28,65 @@ class Board
   end
 
   def valid_placement?(ship, coordinate_array)
-    if ship.length
+    coordinate_array.each do |cell_coordinate|
+      if valid_cruiser_placement.include?(cell_coordinate) == true
+        true
+      else
+        false
+      end
+    end
     #coordinate array will have to eq ship length
     #placement is valid if coordinates are consecutive and in order
-    #enumerate through coordinate array
+    #enumerate through coordinate
+  end
+
+  def valid_cruiser_placement
+    valid_cruiser_spots = [
+      %w(A1 B1 C1),
+      %w(B1 C1 D1),
+      %w(A2 B2 C2),
+      %w(B2 C2 D2),
+      %w(A3 B3 C3),
+      %w(B3 C3 D3),
+      %w(A4 B4 C4),
+      %w(B4 C4 D4),
+      %w(A1 A2 A3),
+      %w(B1 B2 B3),
+      %w(C1 C2 C3),
+      %w(D1 D2 D3),
+      %w(A2 A3 A4),
+      %w(B2 B3 B4),
+      %w(C2 C3 C4),
+      %w(D2 D3 D4)
+    ]
+  end
+
+  def valid_submarine_placement
+    valid_sub_spots = [
+      %w(A1 A2),
+      %w(B1 B2),
+      %w(C1 C2),
+      %w(D1 D2),
+      %w(A2 A3),
+      %w(B2 B3),
+      %w(C2 C3),
+      %w(D2 D3),
+      %w(A3 A4),
+      %w(B3 B4),
+      %w(C3 C4),
+      %w(D3 D4),
+      %w(A1 B1),
+      %w(B1 C1),
+      %w(C1 D1),
+      %w(A2 B2),
+      %w(B2 C2),
+      %w(C2 D2),
+      %w(A3 B3),
+      %w(B3 C3),
+      %w(C3 B3),
+      %w(A4 B4),
+      %w(B4 C4),
+      %w(C4 D4)
+    ]
   end
 end
