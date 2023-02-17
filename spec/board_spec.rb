@@ -13,20 +13,21 @@ RSpec.describe Board do
       expect(board).to be_a Board
     end
 
-    xit 'the board has a hash of cell objects' do
-      expect(board.cells).to eq({cells})
+    it 'the board has a hash of cell objects' do
+      
+      expect(board.cells).is_a?(Hash)
     end
   end
 
   describe '#valid cooridnates' do
-    xit 'the board can identify and validate a cooordinate' do
+    it 'the board can identify and validate a cooordinate' do
       expect(board.valid_coordinate?("A1")).to be true
       expect(board.valid_coordinate?("E1")).to be false
     end
   end
 
   describe '#valid placements' do
-    xit 'it can check if the ships placement is valid' do
+    it 'it can check if the ships placement is valid' do
       #we might have to place the ship
       expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be false
       expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be false
