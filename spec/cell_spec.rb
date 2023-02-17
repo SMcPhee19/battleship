@@ -42,6 +42,30 @@ let(:cell) {cell = Cell.new("B4")}
     end
   end
 
+  describe '#Cell knows when it is fired upon' do
+    let(:cruiser) {cruiser = Ship.new("Cruiser", 3)}
+
+    it 'starts as not fired upon' do
+      cell.place_ship(cruiser)
+
+      expect(cell.fired_upon?).to be false
+    end
+
+    it 'can be fired upon' do
+      cell.place_ship(cruiser)
+      cell.fire_upon
+      
+      expect(cell.ship.health).to eq(2)
+    end
+
+    it 'cell will show as fired upon' do
+      cell.fire_upon
+
+      expect(cell.fired_upon?).to be true
+    end
+
+  end
+
 
 
 
