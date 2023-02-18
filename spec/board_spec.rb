@@ -14,7 +14,6 @@ RSpec.describe Board do
     end
 
     it 'the board has a hash of cell objects' do
-      
       expect(board.cells).is_a?(Hash)
     end
   end
@@ -28,7 +27,7 @@ RSpec.describe Board do
 
   describe '#valid placements' do
     it 'it can check if the ships placement is valid' do
-      #we might have to place the ship
+      board.cells
       expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be false
       expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be false
       
@@ -51,7 +50,4 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["A1", "A2"])).to be true 
     end
   end
-
-
-
 end
