@@ -74,4 +74,16 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
     end
   end
+
+  describe '#rendering the board' do
+    xit 'can render a 4X4 board' do
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    xit 'can render 4X4 board with ship' do
+      board.place(cruiser, ["A1", "A2", "A3"])
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(boar.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+  end
 end
