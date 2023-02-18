@@ -52,7 +52,7 @@ RSpec.describe Board do
   end
 
   describe '#placing ships' do
-    xit 'can place ships in multiple consecutive cells' do
+    it 'can place ships in multiple consecutive cells' do
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
@@ -68,9 +68,9 @@ RSpec.describe Board do
   end
 
   describe '#overlapping ships' do
-    xit 'makes sure that ships cant overlap' do
+    it 'makes sure that ships cant overlap' do
       board.place(cruiser, ["A1", "A2", "A3"])
-
+  
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
     end
   end
