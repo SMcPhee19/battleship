@@ -99,7 +99,7 @@ let(:cell) {cell = Cell.new("B4")}
       3.times do
         cell_2.fire_upon
       end
-
+#this calls fire_upon on the same cell 3 times.
       expect(cruiser.sunk?).to be true
       expect(cell_2.render).to eq("X")
     end
@@ -108,18 +108,5 @@ let(:cell) {cell = Cell.new("B4")}
       cell_2.place_ship(cruiser)
       expect(cell_2.ship_present?).to be true
     end
-    
-
-    
-
   end
-
-
-
-
-
-
-
-
-
 end
