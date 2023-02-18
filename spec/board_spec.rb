@@ -50,4 +50,59 @@ RSpec.describe Board do
       expect(board.valid_placement?(submarine, ["A1", "A2"])).to be true 
     end
   end
+
+  describe '#placing ships' do
+    xit 'can place ships in multiple consecutive cells' do
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      board.place(cruiser, ["A1", "A2", "A3"])
+      
+      expect(cell_1.ship).to eq(cruiser)
+      expect(cell_2.ship).to eq(cruiser)
+      expect(cell_3.ship).to eq(cruiser)
+      expect(cell_1.ship == cell_2.ship).to be true
+      expect(cell_2.ship == cell_3.ship).to be true
+      expect(cell_3.ship == cell_2.ship).to be true
+    end
+  end
+
+  describe '#overlapping ships' do
+    xit 'makes sure that ships cant overlap' do
+      board.place(cruiser, ["A1", "A2", "A3"])
+
+      expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
+    end
+  end
+
+  describe '#rendering the board' do
+    xit 'can render a 4X4 board' do
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    xit 'can render 4X4 board with ship' do
+      board.place(cruiser, ["A1", "A2", "A3"])
+
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    xit 'can render board with misses, hits, and sinks' do
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+      cell_4 = board.cells["A4"]
+
+      board.place(cruiser, ["A1", "A2", "A3"])
+      cell_1.fire_upon
+
+      expect(board.render).to eq(expect(board.render).to eq("  1 2 3 4 \nA H . . . \nB . . . . \nC . . . . \nD . . . . \n"))
+
+      cell_4.fire_upon
+      cell_3.fire_upon
+      cell_2.fire_upon
+
+      expect(board.render).to eq("  1 2 3 4 \nA X X X M \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+  end
 end
