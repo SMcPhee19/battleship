@@ -20,6 +20,7 @@ class Board
       "D3" => Cell.new('D3'),
       "D4" => Cell.new('D4')
     }
+  
   end
 
   def valid_coordinate?(coordinate)
@@ -28,16 +29,15 @@ class Board
   end
 
   def valid_placement?(ship, coordinate_array)
-    coordinate_array.each do |cell_coordinate|
-      if valid_cruiser_placement.include?(cell_coordinate) == true
+    if ship.length == coordinate_array.length
+      if valid_cruiser_placement.include?(coordinate_array) || valid_submarine_placement.include?(coordinate_array)
         true
-      else
+        else
         false
       end
+    else
+      false
     end
-    #coordinate array will have to eq ship length
-    #placement is valid if coordinates are consecutive and in order
-    #enumerate through coordinate
   end
 
   def valid_cruiser_placement
