@@ -1,7 +1,4 @@
-require 'rspec'
-require './lib/ship'
-require './lib/cell'
-require './lib/board'
+require 'spec_helper'
 
 RSpec.describe Board do
   let(:board) {board = Board.new}
@@ -102,5 +99,5 @@ RSpec.describe Board do
 
       expect(board.render).to eq("  1 2 3 4 \nA X X X M \nB . . . . \nC . . . . \nD . . . .")
     end
-  end #need to write tests for helper methods. valid cruiser and sub placements
+  end
 end
