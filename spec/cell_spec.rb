@@ -96,10 +96,13 @@ let(:cell) {cell = Cell.new("B4")}
 
     it 'can be sunk and render correctly' do
       cell_2.place_ship(cruiser)
-      3.times do
-        cell_2.fire_upon
-      end
-#this calls fire_upon on the same cell 3 times.
+      cell_2.fire_upon
+
+      expect(cruiser.sunk?).to eq(false)
+      
+      cruiser.hit
+      cruiser.hit
+      
       expect(cruiser.sunk?).to be true
       expect(cell_2.render).to eq("X")
     end
