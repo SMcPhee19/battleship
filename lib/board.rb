@@ -20,7 +20,6 @@ class Board
       "D3" => Cell.new('D3'),
       "D4" => Cell.new('D4')
     }
-  
   end
 
   def valid_coordinate?(coordinate)
@@ -64,8 +63,6 @@ class Board
       " \nC #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render}" +
       " \nD #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render}" 
     end
-    # if view is false it will show an empty 4x4 board
-    # if there is a ship that was placed, view changes to true, and the board shows the ship
   end
 
   def valid_cruiser_placement
@@ -88,7 +85,6 @@ class Board
       %w(D2 D3 D4)
     ]
   end
-  
 
   def valid_submarine_placement
     valid_sub_spots = [
