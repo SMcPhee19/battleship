@@ -67,25 +67,25 @@ RSpec.describe Board do
     it 'makes sure that ships cant overlap' do
       board.place(cruiser, ["A1", "A2", "A3"])
       board.place(submarine, ["A1", "B1"])
-      
+
       expect(board.place(cruiser, ["A1", "A2", "A3"])).to eq(["A1", "A2", "A3"])
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
     end
   end
   
   describe '#rendering the board' do
-    xit 'can render a 4X4 board' do
-      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+    it 'can render a 4X4 board' do
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . .")
     end
 
-    xit 'can render 4X4 board with ship' do
+    it 'can render 4X4 board with ship' do
       board.place(cruiser, ["A1", "A2", "A3"])
 
-      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
-      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . .")
+      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . .")
     end
 
-    xit 'can render board with misses, hits, and sinks' do
+    it 'can render board with misses, hits, and sinks' do
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
@@ -94,13 +94,13 @@ RSpec.describe Board do
       board.place(cruiser, ["A1", "A2", "A3"])
       cell_1.fire_upon
 
-      expect(board.render).to eq(expect(board.render).to eq("  1 2 3 4 \nA H . . . \nB . . . . \nC . . . . \nD . . . . \n"))
+      expect(board.render).to eq("  1 2 3 4 \nA H . . . \nB . . . . \nC . . . . \nD . . . .")
 
       cell_4.fire_upon
       cell_3.fire_upon
       cell_2.fire_upon
 
-      expect(board.render).to eq("  1 2 3 4 \nA X X X M \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(board.render).to eq("  1 2 3 4 \nA X X X M \nB . . . . \nC . . . . \nD . . . .")
     end
   end #need to write tests for helper methods. valid cruiser and sub placements
 end

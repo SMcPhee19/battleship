@@ -52,6 +52,22 @@ class Board
     end
   end
 
+  def render(view = false)
+    if view
+      "  1 2 3 4 \nA #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render(true)}" +
+      " \nB #{@cells["B1"].render(true)} #{@cells["B2"].render(true)} #{@cells["B3"].render(true)} #{@cells["B4"].render(true)}" +
+      " \nC #{@cells["C1"].render(true)} #{@cells["C2"].render(true)} #{@cells["C3"].render(true)} #{@cells["C4"].render(true)}" +
+      " \nD #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)}"
+    else
+      "  1 2 3 4 \nA #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render}" +
+      " \nB #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render}" +
+      " \nC #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render}" +
+      " \nD #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render}" 
+    end
+    # if view is false it will show an empty 4x4 board
+    # if there is a ship that was placed, view changes to true, and the board shows the ship
+  end
+
   def valid_cruiser_placement
     valid_cruiser_spots = [
       %w(A1 B1 C1),
@@ -74,7 +90,7 @@ class Board
   end
   
 
-  def valid_submarine_placement #write tests
+  def valid_submarine_placement
     valid_sub_spots = [
       %w(A1 A2),
       %w(B1 B2),
