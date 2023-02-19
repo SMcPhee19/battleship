@@ -27,10 +27,8 @@ RSpec.describe Board do
 
   describe '#valid placements' do
     it 'it can check if the ships placement is valid' do
-      board.cells
       expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be false
       expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be false
-      
     end
 
     it 'it can check if the coordiante are consecutive in the correct direction' do
@@ -52,7 +50,7 @@ RSpec.describe Board do
   end
 
   describe '#placing ships' do
-    xit 'can place ships in multiple consecutive cells' do
+    it 'can place ships in multiple consecutive cells' do
       cell_1 = board.cells["A1"]
       cell_2 = board.cells["A2"]
       cell_3 = board.cells["A3"]
@@ -65,16 +63,15 @@ RSpec.describe Board do
       expect(cell_2.ship == cell_3.ship).to be true
       expect(cell_3.ship == cell_2.ship).to be true
     end
-  end
 
-  describe '#overlapping ships' do
-    xit 'makes sure that ships cant overlap' do
+    it 'makes sure that ships cant overlap' do
       board.place(cruiser, ["A1", "A2", "A3"])
-
+      
+      expect(board.place(cruiser, ["A1", "A2", "A3"])).to eq(["A1", "A2", "A3"])
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
     end
   end
-
+  
   describe '#rendering the board' do
     xit 'can render a 4X4 board' do
       expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
@@ -104,5 +101,5 @@ RSpec.describe Board do
 
       expect(board.render).to eq("  1 2 3 4 \nA X X X M \nB . . . . \nC . . . . \nD . . . . \n")
     end
-  end
+  end #need to write tests for helper methods. valid cruiser and sub placements
 end
