@@ -27,7 +27,8 @@ class Board
     return true if @cells.include?(coordinate)
     false
   end
-
+# Might have to include an && doesnt include submarine, and && doesnt include cruiser?
+# This is too loose and lets ships overlap possibly? OR issue with place method
   def valid_placement?(ship, coordinate_array)
     if ship.length == coordinate_array.length
       if valid_cruiser_placement.include?(coordinate_array) || valid_submarine_placement.include?(coordinate_array)
@@ -40,21 +41,21 @@ class Board
     end
   end
 
-  def place(ship, coordinate_array)
-    coordinate_array.each do |coordinate|
-      @cells[coordinate].place_ship(ship)
-    end
-  end
-
   # def place(ship, coordinate_array)
-  #   if self.valid_placement?(ship, coordinate_array)
-  #     coordinate_array.each do |coordinate|
-  #       @cells[coordinate].place_ship(ship)
-  #     end
+  #   coordinate_array.each do |coordinate|
+  #     @cells[coordinate].place_ship(ship)
   #   end
   # end
 
-  def valid_cruiser_placement
+  def place(ship, coordinate_array)#if cells contain cruiser, reject sub. else cells contain sub, reject cruiser
+    if self.valid_placement?(ship, coordinate_array)
+      coordinate_array.each do |coordinate|
+        @cells[coordinate].place_ship(ship)
+      end
+    end
+  end
+
+  def valid_cruiser_placement #write tests
     valid_cruiser_spots = [
       %w(A1 B1 C1),
       %w(B1 C1 D1),
@@ -74,8 +75,9 @@ class Board
       %w(D2 D3 D4)
     ]
   end
+  
 
-  def valid_submarine_placement
+  def valid_submarine_placement #write tests
     valid_sub_spots = [
       %w(A1 A2),
       %w(B1 B2),
