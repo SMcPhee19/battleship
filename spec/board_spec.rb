@@ -66,6 +66,7 @@ RSpec.describe Board do
 
     it 'makes sure that ships cant overlap' do
       board.place(cruiser, ["A1", "A2", "A3"])
+      board.place(submarine, ["A1", "B1"])
       
       expect(board.place(cruiser, ["A1", "A2", "A3"])).to eq(["A1", "A2", "A3"])
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to be false
