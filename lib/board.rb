@@ -46,6 +46,14 @@ class Board
     end
   end
 
+  # def place(ship, coordinate_array)
+  #   if self.valid_placement?(ship, coordinate_array)
+  #     coordinate_array.each do |coordinate|
+  #       @cells[coordinate].place_ship(ship)
+  #     end
+  #   end
+  # end
+
   def valid_cruiser_placement
     valid_cruiser_spots = [
       %w(A1 B1 C1),
