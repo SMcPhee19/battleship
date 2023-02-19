@@ -25,10 +25,11 @@ RSpec.describe do
     end
 
     it 'the game will place the computer ships' do
-      game.start_up
+      game.game_setup
       game.computer_ship_placement
 
       expect(game.computer_board.render == game.computer_board.render(true)).to eq(false)
     end
+    # require 'pry'; binding.pry
   end
 end
