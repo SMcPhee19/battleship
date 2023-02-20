@@ -81,12 +81,11 @@ class Game
       player_shot
       show_board
       break if player_lost || computer_lost
-      game_end
     end
   end
 
   def computer_shot
-    computer_shot = @player_board.cells.keys.sample
+    @computer_shot = @player_board.cells.keys.sample
     if @player_board.valid_coordinate?(@computer_shot) == true && @player_board.cells[@computer_shot].fired_upon? == false
       @player_board.cells[@computer_shot].fire_upon
     end
@@ -105,24 +104,31 @@ class Game
 
   def player_results
     if @computer_board.cells[@player_shot].empty?
+      @computer_board.cells[@player_shot].render == "M"
       puts "Miss!"
     else @computer_board.cells[@player_shot].empty? == false
       if @computer_board.cells[@player_shot].ship.health >= 1 
+        @computer_board.cells[@player_shot].render == "H"
         puts "Hit!"
       else
+        @computer_board.cells[@player_shot].render == "X"
         puts "You sunk my #{@computer_board.cells[@player_shot].ship.name}!"
+
       end
     end
   end
 
   def computer_results
     if @player_board.cells[@computer_shot].empty?
+      @player_board.cells[@computer_shot].render == "M"
       puts "Miss!"
     else @player_board.cells[@computer_shot].empty? == false
-      if @player_board.cells[@computer_shot].ship.health >= 1 
+      if @player_board.cells[@computer_shot].ship.health >= 1
+        @player_board.cells[@computer_shot].render == "H"
         puts "Hit!"
       else
-        puts "I sunk your #{@player_board.cells[target].ship.name}!"
+        @player_board.cells[@computer_shot].render == "X"
+        puts "I sunk your #{@player_board.cells[@player_shot].ship.name}!"
       end
     end
   end
