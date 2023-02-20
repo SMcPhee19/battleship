@@ -21,11 +21,14 @@ class Game
     if input == "p"
       game_setup
       computer_ship_placement
-      player_ship_placement
+      player_cruiser_placement
+      player_sub_placement
       play_game
     elsif
       input == "q"
       puts "That's dissapointing!"
+    else
+      start_up
     end
   end
 
@@ -38,7 +41,6 @@ class Game
     @player_cruiser = Ship.new('Cruiser', 3)
   end
 
-  
   def computer_ship_placement
     computer_place_cruiser = @computer_board.valid_cruiser_placement.sample
     @computer_board.place(@computer_cruiser, computer_place_cruiser)
@@ -50,7 +52,7 @@ class Game
     @computer_board.place(@computer_sub, computer_place_sub)
   end
   
-  def player_ship_placement
+  def player_cruiser_placement
     puts "I have laid out my ships on the grid.\nYou now need to lay out your two ships.\nThe Cruiser is three units long and the\nSubmarine is two units long."
     puts @player_board.render(true)
     
@@ -59,19 +61,23 @@ class Game
     puts "#{player_cruiser_cells << gets.chomp.upcase.split}"
     if @player_board.valid_placement?(@player_cruiser, player_cruiser_cells.first) == false 
       puts "Those are invalid coordinates. Please try again:"
+      player_cruiser_placement
     end
     @player_board.place(@player_cruiser, player_cruiser_cells.first)
 
-    print @player_board.render(true)
-    
+    puts @player_board.render(true)
+  end
+
+  def player_sub_placement
     puts "Enter the squares for the Submarine (2 spaces):"
     player_sub_cells = []
     puts "#{player_sub_cells << gets.chomp.upcase.split}"
     if @player_board.valid_placement?(@player_sub, player_sub_cells.first) == false 
       puts "Those are invalid coordinates. Please try again:"
+      player_sub_placement
     end
     @player_board.place(@player_sub, player_sub_cells.first)
-    print @player_board.render(true)
+    puts @player_board.render(true)
   end
 
   def turn
@@ -128,7 +134,7 @@ class Game
         puts "Hit!"
       else
         @player_board.cells[@computer_shot].render == "X"
-        puts "I sunk your #{@player_board.cells[@player_shot].ship.name}!"
+        puts "I sunk your #{@player_board.cells[@computer_shot].ship.name}!"
       end
     end
   end
@@ -152,7 +158,7 @@ class Game
 
   def show_board
     puts "=============COMPUTER BOARD============="
-    puts @computer_board.render
+    puts @computer_board.render(true)#have to comment true out. This is to view computer board
     puts "==============PLAYER BOARD=============="
     puts @player_board.render(true)
   end
