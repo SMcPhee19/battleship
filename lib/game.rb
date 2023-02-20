@@ -89,41 +89,42 @@ class Game
   end
 
   def computer_shot
-    #how we want computer shot to work
-    # computer_shot = @player_board.cells.keys.sample
-    # if @player_board.valid_coordinate?(@computer_shot) == true && player_board.cells[@computer_shot].fired_upon? == false
-    # @player_board.cells[@computer_shot].fired_upon
+    computer_shot = @player_board.cells.keys.sample
+    if @player_board.valid_coordinate?(@computer_shot) == true && @player_board.cells[@computer_shot].fired_upon? == false
+      @player_board.cells[@computer_shot].fired_upon
+    end
   end
 
   def player_shot
-    #how we want the player shot to work
-    # puts "Please enter the coordinate you wish to fire upon"
-    # @player_shot = gets.chomp.upcase
-    # if @computer_board.valid_coordinate?(@player_shot) == true
-    #   @player_board.cells[@computer_shot].fired_upon
-    # else
-    #   puts "Please enter a valid coordinate"
-    # end
+    puts "Please enter the coordinate you wish to fire upon"
+    @player_shot = gets.chomp.upcase
+    if @computer_board.valid_coordinate?(@player_shot) == true && @computer_board.cells[@player_shot].fired_upon? == false
+      @player_board.cells[@computer_shot].fired_upon
+    else
+      puts "Please enter a valid coordinate"
+    end
   end
 
   def player_results
-    #Your shot was a miss, a hit, or sunk a ship
-    # if .render == M
-    # "#{@player_shot} missed, try again
-    # elsif .render == H
-    # "#{@player_shot} was a hit!"
-    # else .render == X
-    # "#{@player_shot} sunk a ship!"
+    if @computer_board.cells[@player_shot].empty?
+      puts "Miss!"
+    elsif @computer_board.cells[@player_shot].empty? == false
+      if @computer_board.cells[@player_shot].ship.health >= 1 
+        puts "Hit!"
+      end
+    end
   end
 
   def computer_results
-    #My shot was a miss, a hit, or sunk a ship
-    # if .render == M
-    # "#{@computer_shot} missed, try again
-    # elsif .render == H
-    # "#{@computer_shot} was a hit!"
-    # else .render == X
-    # "#{@computer_shot} sunk a ship!"
+    if @player_board.cells[@computer_shot].empty?
+      puts "Miss!"
+    elsif @player_board.cells[@computer_shot].empty? == false
+      if @player_board.cells[@computer_shot].ship.health >= 1 
+        puts "Hit!"
+      else
+        puts "I sunk your #{@player_board.cells[target].ship.name}!"
+      end
+    end
   end
 
   def player_lost
@@ -137,5 +138,4 @@ class Game
   def game_end
     # how do we want the game to end
   end
-end
 end
