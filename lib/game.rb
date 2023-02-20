@@ -56,10 +56,56 @@ class Game
     
     puts "Enter the squares for the Cruiser (3 spaces):"
     player_cruiser_cells = []
-    puts "#{player_cruiser_cells << gets.chomp.capitalize.join(" ")}"
-  
+    puts "#{player_cruiser_cells << gets.chomp.upcase.split}"
+    if @player_board.valid_placement?(@player_cruiser, player_cruiser_cells.first) == false 
+      puts "Those are invalid coordinates. Please try again:"
+    end
+    @player_board.place(@player_cruiser, player_cruiser_cells.first)
 
+    print @player_board.render(true)
+    
+    puts "Enter the squares for the Submarine (2 spaces):"
+    player_sub_cells = []
+    puts "#{player_sub_cells << gets.chomp.upcase.split}"
+    if @player_board.valid_placement?(@player_sub, player_sub_cells.first) == false 
+      puts "Those are invalid coordinates. Please try again:"
+    end
+    @player_board.place(@player_sub, player_sub_cells.first)
+    print @player_board.render(true)
   end
-  
+
+  def turn
+    puts "=============COMPUTER BOARD============="
+    puts @computer_board.render
+    puts "==============PLAYER BOARD=============="
+    puts @player_board.render(true)
+    while player_lost == false || computer_lost == false
+      computer_shot
+      player_shot
+      #do we need to display the boards?
+      break if player_lost || computer_lost
+      game_end
+    end
+  end
+
+  def computer_shot
+    #how we want computer shot to work
+  end
+
+  def player_shot
+    #how we want the player shot to work
+  end
+
+  def player_lost
+    @player_cruiser.sunk? && @player_sub.sunk?
+  end
+
+  def computer_lost 
+    @computer_cruiser.sunk? && @computer_sub.sunk?
+  end
+
+  def game_end
+    # how do we want the game to end
+  end
   
 end
