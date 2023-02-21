@@ -58,7 +58,7 @@ class Game
     puts "I have laid out my ships on the grid.\nYou now need to lay out your two ships.\nThe Cruiser is three units long and the\nSubmarine is two units long."
     puts @player_board.render(true)
     
-    puts "Enter the squares for the Cruiser (3 spaces):"
+    puts "Enter the squares for the Cruiser (3 spaces): Ex. A1 A2 A3"
     player_cruiser_cells = gets.chomp.upcase.split
     puts "#{player_cruiser_cells}"
     if @player_board.valid_placement?(@player_cruiser, player_cruiser_cells) == false 
@@ -71,7 +71,7 @@ class Game
   end
 
   def player_sub_placement
-    puts "Enter the squares for the Submarine (2 spaces):"
+    puts "Enter the squares for the Submarine (2 spaces): Ex. B2 B3"
     player_sub_cells = gets.chomp.upcase.split
     puts "#{ player_sub_cells}"
     if @player_board.valid_placement?(@player_sub, player_sub_cells) == false 
@@ -87,6 +87,7 @@ class Game
     while player_lost == false || computer_lost == false
       computer_shot
       player_shot
+      sleep(1)
       player_results
       show_board
       break if player_lost || computer_lost
