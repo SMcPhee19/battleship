@@ -43,11 +43,13 @@ class Game
 
   def computer_ship_placement
     computer_place_cruiser = @computer_board.valid_cruiser_placement.sample
+    while @computer_board.valid_placement?(@computer_cruiser, computer_place_cruiser) == false
+      computer_place_cruiser = @computer_board.valid_cruiser_placement.sample
+    end 
     @computer_board.place(@computer_cruiser, computer_place_cruiser)
     computer_place_sub = @computer_board.valid_submarine_placement.sample
-    @computer_board.place(@computer_sub, computer_place_sub)
     while @computer_board.valid_placement?(@computer_sub, computer_place_sub) == false
-      break #We'll need to refactor some how find a way to get rid of the break
+      computer_place_sub = @computer_board.valid_submarine_placement.sample
     end
     @computer_board.place(@computer_sub, computer_place_sub)
   end
@@ -57,27 +59,28 @@ class Game
     puts @player_board.render(true)
     
     puts "Enter the squares for the Cruiser (3 spaces):"
-    player_cruiser_cells = []
-    puts "#{player_cruiser_cells << gets.chomp.upcase.split}"
-    if @player_board.valid_placement?(@player_cruiser, player_cruiser_cells.first) == false 
+    player_cruiser_cells = gets.chomp.upcase.split
+    puts "#{player_cruiser_cells}"
+    if @player_board.valid_placement?(@player_cruiser, player_cruiser_cells) == false 
       puts "Those are invalid coordinates. Please try again:"
       player_cruiser_placement
+    else 
+      @player_board.place(@player_cruiser, player_cruiser_cells)
+      puts @player_board.render(true)
     end
-    @player_board.place(@player_cruiser, player_cruiser_cells.first)
-
-    puts @player_board.render(true)
   end
 
   def player_sub_placement
     puts "Enter the squares for the Submarine (2 spaces):"
-    player_sub_cells = []
-    puts "#{player_sub_cells << gets.chomp.upcase.split}"
-    if @player_board.valid_placement?(@player_sub, player_sub_cells.first) == false 
+    player_sub_cells = gets.chomp.upcase.split
+    puts "#{ player_sub_cells}"
+    if @player_board.valid_placement?(@player_sub, player_sub_cells) == false 
       puts "Those are invalid coordinates. Please try again:"
       player_sub_placement
+    else
+      @player_board.place(@player_sub, player_sub_cells)
+      puts @player_board.render(true)
     end
-    @player_board.place(@player_sub, player_sub_cells.first)
-    puts @player_board.render(true)
   end
 
   def turn
@@ -85,6 +88,7 @@ class Game
     while player_lost == false || computer_lost == false
       computer_shot
       player_shot
+      player_results
       show_board
       break if player_lost || computer_lost
     end
@@ -101,7 +105,7 @@ class Game
     puts "Please enter the coordinate you wish to fire upon"
     @player_shot = gets.chomp.upcase
     if @computer_board.valid_coordinate?(@player_shot) == true && @computer_board.cells[@player_shot].fired_upon? == false
-      @player_board.cells[@computer_shot].fire_upon
+      @computer_board.cells[@player_shot].fire_upon
     else
       puts "Please enter a valid coordinate"
       player_shot
