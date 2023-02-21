@@ -20,6 +20,7 @@ class Board
       "D3" => Cell.new('D3'),
       "D4" => Cell.new('D4')
     }
+    @used_cells = []
   end
 
   def valid_coordinate?(coordinate)
@@ -42,6 +43,7 @@ class Board
   def place(ship, coordinate_array)
     coordinate_array.each do |coordinate|
       @cells[coordinate].place_ship(ship)
+      @used_cells << coordinate
     end
   end
 
