@@ -16,7 +16,19 @@ class Game
   end
 
   def start_up
-    puts "Welcome to BATTLESHIP\nEnter p to play. Enter q to quit."
+    puts "
+                  __/___     |>
+                /_____/_____|_
+        _______/_____/_______|_____
+        \\   USS  < < <  TURING   ||
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+    puts "~~~~~~~~~~~~~~~~~ Welcome to ~~~~~~~~~~~~~~~~~~~~~~~~~\n" +
+    "   ____    _  _____ _____ _     _____ ____  _   _ ___ ____\n" +
+    "  | __ )  / ||_   _|_   _| |   | ____/ ___|| | | |_ _|  _  \n" +
+    "  |  _   / _|  | |   | | | |   |  _|  ___  | |_| || || |_) |\n" +
+    "  | |_) / __|  | |   | | | |___| |___ ___) |  _  || ||  __/\n" +
+    "  |____/_/  |  |_|   |_| |_____|_____|____/|_| |_|___|_|\n" +
+    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nEnter p to play. Enter q to quit."
     input = gets.chomp
     if input == "p"
       game_setup
@@ -84,14 +96,10 @@ class Game
   end
 
   def turn
-    while player_lost == false || computer_lost == false
-      computer_shot
-      player_shot
-      sleep(1)
-      player_results
-      show_board
-      break if player_lost || computer_lost
-    end
+    computer_shot
+    player_shot
+    sleep(1)
+    player_results
   end
 
   def computer_shot
@@ -123,7 +131,6 @@ class Game
       else
         @computer_board.cells[@player_shot].render == "X"
         puts "You sunk my #{@computer_board.cells[@player_shot].ship.name}!"
-
       end
     end
   end
@@ -144,12 +151,9 @@ class Game
   end
 
   def play_game
-    while player_lost == false && computer_lost == false
+    until player_lost == true || computer_lost == true
       show_board
       turn
-      player_shot
-      computer_shot
-      break if computer_lost == true || player_lost == true
     end
     if computer_lost == true
       puts "Congrats! You win!"
