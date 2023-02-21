@@ -84,7 +84,6 @@ class Game
   end
 
   def turn
-    show_board
     while player_lost == false || computer_lost == false
       computer_shot
       player_shot
@@ -162,7 +161,7 @@ class Game
 
   def show_board
     puts "=============COMPUTER BOARD============="
-    puts @computer_board.render(true)#have to comment true out. This is to view computer board
+    puts @computer_board.render
     puts "==============PLAYER BOARD=============="
     puts @player_board.render(true)
   end
